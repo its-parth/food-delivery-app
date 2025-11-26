@@ -10,14 +10,12 @@ const Body = () => {
     const [found, setFound] = useState(true);
 
     const fetchData = async () => {
-        console.log('fetch data started');
-        const response = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING');
+        const response = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9966135&lng=77.5920581&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING');
         const data = await response.json();
         console.log(data);
         const restaurants = data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
         // setFilteredRestaurant(restaurants);
         setRestaurantList(restaurants);
-        console.log('fetch data done');
     }
 
 
@@ -26,7 +24,13 @@ const Body = () => {
     }, []);
 
     useEffect(() => {
-        const filteredRest = restaurantList.filter((rest) => rest.info.name.toLowerCase().includes(searchText.toLowerCase()));     
+        const filteredRest = restaurantList.filter((rest) => {
+
+            return (rest.info.name.toLowerCase().includes(searchText) ||
+
+            
+                rest.info.cuisines?.join(' ').toLowerCase().includes(searchText))
+        });
 
         setFound(filteredRest.length > 0);
         setFilteredRestaurant(filteredRest);
@@ -42,24 +46,25 @@ const Body = () => {
         setSearchText(e.target.value);
     }
 
-    if(restaurantList.length === 0) {
+    if (restaurantList.length === 0) {
         return <ShimmerUI />
     }
     return <>
-            <div className='filter m-2 flex gap-2 items-center'>
-                <div className='search flex gap-2 items-center'>
-                    <input type="text" className='border-2 p-2 rounded-xl' value={searchText} onChange={handleInputChange} placeholder='Search Here'/>
-                </div>
-                <div className='top-rated-btn border-2 border-black select-none inline-block p-2 cursor-pointer bg-red-500 text-white rounded-xl' onClick={getTopRated}>Top Rated Restaurants</div>
+        <div className='filter m-2 flex gap-2 items-center'>
+            <div className='search flex gap-2 items-center'>
+                <input type="text" className='border-2 p-2 rounded-xl' value={searchText} onChange={handleInputChange} placeholder='Search Here' />
             </div>
-            
-            <div className="border-2 m-2 rest-container flex flex-wrap p-2 justify-evenly gap-y-4 bg-blue-400">
+
+            <div className='top-rated-btn border-2 border-black select-none inline-block p-2 cursor-pointer bg-red-500 text-white rounded-xl' onClick={getTopRated}>Top Rated Restaurants</div>
+        </div>
+
+        <div className="border-2 m-2 rest-container flex flex-wrap p-2 justify-evenly gap-y-4 bg-blue-400">
             {found ? (filteredRestaurant.map(restCard => {
-                return <RestaurantCard rest={restCard} key={restCard.info.id}/>
+                return <RestaurantCard rest={restCard} key={restCard.info.id} />
             })) : (<div className='font-bold text-white h-[70vh] flex justify-center items-center text-3xl text-center'>Not Any Relevant Restaurants</div>)}
         </div>
     </>
-    
+
 }
 
 export default Body;

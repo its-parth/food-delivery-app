@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import logoText from '../assets/logo_text.png';
 const Header = () => {
@@ -8,11 +9,12 @@ const Header = () => {
             <img id='logo-txt' className="h-[65px]" width={100} src={logoText} />
         </div>
         <ul className='flex gap-5 text-xl font-bold mr-2'>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact Us</li>
-            <li>Cart</li>
+            <li><Link to={'/'}>Home</Link></li>
+            <li><Link to={'/about'}>About</Link></li>
+            <li><Link to={'/contact'}>Contact Us</Link></li>
+            <li><Link to={'/cart'}>Cart</Link></li>
         </ul>
+        <Link to={'/'}>Hello</Link>
     </div>
 }
 

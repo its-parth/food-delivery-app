@@ -1,13 +1,16 @@
 import Header from './components/Header';
 import Body from './components/Body';
 import Footer from './components/Footer';
+import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
 const App = () => {
     return <div>
         <Header />
-        <Body />
+        <Outlet />
         <Footer />
     </div>
-}
+} 
 
 
 export default App;
