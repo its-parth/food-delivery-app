@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import logoText from '../assets/logo_text.png';
+import useIsOnline from '../utils/useIsOnline';
+
 const Header = () => {
-    
+    console.log('header rendered');
+    const online = useIsOnline();
     return <div className='flex justify-between items-center px-3 border-2 m-2 bg-blue-300'>
         <div className='flex items-center'>
             <img id="header-logo" width={100} src={logo}/>
@@ -14,7 +17,10 @@ const Header = () => {
             <li><Link to={'/contact'}>Contact Us</Link></li>
             <li><Link to={'/cart'}>Cart</Link></li>
         </ul>
-        <Link to={'/'}>Hello</Link>
+        <div>Online Status {
+                online ? (<div>😛</div>) : (<div>💀</div>)
+            }
+        </div>
     </div>
 }
 
