@@ -12,7 +12,7 @@ const Body = () => {
     const online = useIsOnline();
 
     const fetchData = async () => {
-        const response = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9966135&lng=77.5920581&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING');
+        const response = await fetch("https://corsproxy.io/?url=https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9966135&lng=77.5920581&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
         const data = await response.json();
         console.log(data);
         const restaurants = data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
@@ -32,7 +32,7 @@ const Body = () => {
         // return () => {
         //     clearInterval(intervalId);
         // }
-    },[]);
+    }, []);
 
     useEffect(() => {
         // console.log('inside second useEffect')
@@ -40,7 +40,7 @@ const Body = () => {
 
             return (rest.info.name.toLowerCase().includes(searchText) ||
 
-            
+
                 rest.info.cuisines?.join(' ').toLowerCase().includes(searchText))
         });
 

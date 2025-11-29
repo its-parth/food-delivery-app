@@ -16,6 +16,7 @@ const Header = () => {
             <li><Link to={'/about'}>About</Link></li>
             <li><Link to={'/contact'}>Contact Us</Link></li>
             <li><Link to={'/cart'}>Cart</Link></li>
+            <li><Link to={'/restaurants/1'}>Restaurant Menu</Link></li>
         </ul>
         <div>Online Status {
                 online ? (<div>😛</div>) : (<div>💀</div>)
